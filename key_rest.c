@@ -17,7 +17,7 @@ void            escape(t_term *term)
 	exit(1);
 }
 
-void            delete(t_term *term, t_lst **head)
+void            del(t_term *term, t_lst **head)
 {
 	t_lst *tmp;
 

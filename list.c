@@ -50,6 +50,7 @@ void		init_list(t_term *term, char **av)
 	int	i;
 
 	i = 0;
+	term->lst = NULL;
 	while (av[++i])
 		list_push_back(&term->lst, list_create_node(av[i], i));
 }
