@@ -14,6 +14,7 @@ void            select_cur(t_term *term)
 
 void            escape(t_term *term)
 {
+	exit_term(term);
 	exit(1);
 }
 
@@ -28,8 +29,8 @@ void            del(t_term *term, t_lst **head)
 		error_exit("list empty");
 	if (*head == tmp)
 	{
-		if (!(tmp->next)) // exit si plus d'element dans la liste
-			exit(0);
+		if (!(tmp->next))
+			escape(term);
 		*head = tmp->next;
 		tmp->next = *head;
 		tmp->next->pos = 1;
