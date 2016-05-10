@@ -6,7 +6,7 @@
 /*   By: adu-pelo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/03 10:46:12 by adu-pelo          #+#    #+#             */
-/*   Updated: 2016/05/09 17:26:59 by adu-pelo         ###   ########.fr       */
+/*   Updated: 2016/05/10 17:32:01 by adu-pelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,11 +76,13 @@ typedef struct		s_term
 
 void            escape(t_term *term);
 void            select_cur(t_term *term);
+void			ret_to_shell(t_term *term);
 void            del(t_term *term, t_lst **head);
 void            up_arrow(t_term *term);
 void            down_arrow(t_term *term);
 void            left_arrow(t_term *term);
 void            right_arrow(t_term *term);
+
 void    		init_term(t_term *term);
 void   	  		exit_term(t_term *term);
 void			init_list(t_term *term, char **av);
@@ -92,6 +94,6 @@ int				ft_poutchar(int c);
 void 			error_exit(char *func);
 t_lst			*list_position(t_lst **head);
 
-void			set_display(t_term *term, int ref, int i);
+int				set_display(t_term *term, t_lst *lst, int ref, int i, int max);
 
 #endif

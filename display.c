@@ -6,7 +6,7 @@
 /*   By: adu-pelo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/09 12:30:11 by adu-pelo          #+#    #+#             */
-/*   Updated: 2016/05/09 17:27:00 by adu-pelo         ###   ########.fr       */
+/*   Updated: 2016/05/10 17:32:07 by adu-pelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ static void	choose_display(t_lst *lst)
 void		display_list(t_term *term)
 {
 	int		i;
+	int max = 0;
 	int		ref;
 	t_lst	*tmp;
 
@@ -67,7 +68,7 @@ void		display_list(t_term *term)
 	tmp = term->lst;
 	while (tmp)
 	{
-		set_display(term, ref, i);
+		max = set_display(term, tmp, ref, i, max);
 		choose_display(tmp);
 		tmp = tmp->next;
 		i++;

@@ -15,7 +15,7 @@ void            select_cur(t_term *term)
 void            escape(t_term *term)
 {
 	exit_term(term);
-	exit(1);
+	exit(0);
 }
 
 void            del(t_term *term, t_lst **head)
@@ -47,4 +47,27 @@ void            del(t_term *term, t_lst **head)
 		tmp->prev->next = tmp->next;
 	}
 	free(tmp);
+}
+
+void	ret_to_shell(t_term *term)
+{
+	char	*ret;
+	t_lst	*lst;
+
+	lst = term->lst;
+	ret = NULL;
+	ret = (char *)malloc(sizeof(char));
+	while (lst)
+	{
+		if (lst->selected == 1)
+		{
+			ret = ft_strjoin(ret, lst->name);
+			ret = ft_strjoin(ret, " ");
+		}
+		lst = lst->next;
+	}
+	exit_term(term);
+	if (ft_strlen(ret))
+		ft_putendl_fd(ft_strsub(ret, 0, ft_strlen(ret) - 1), 1);
+	exit(0);
 }

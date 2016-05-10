@@ -6,7 +6,7 @@
 /*   By: adu-pelo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/09 13:21:18 by adu-pelo          #+#    #+#             */
-/*   Updated: 2016/05/09 17:27:03 by adu-pelo         ###   ########.fr       */
+/*   Updated: 2016/05/10 17:31:59 by adu-pelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	update_size(t_term *term)
 {
 	t_size	*siz;
 	t_lst	**head;
-   
+
 	head = &term->lst;
 	siz = &term->siz;
 	siz->nb_elem = list_len(*head);
@@ -60,44 +60,32 @@ void	update_size(t_term *term)
 	siz->nb_col = term->win.ws_col / (siz->max_len + 4);
 }
 
-void	set_display(t_term *term, int ref, int i)
+int	set_display(t_term *term, t_lst *lst, int id_col, int i, int max)
 {
 	int j;
-	int col;
-	int	elem_col;
+	int nb_col;
+	int	nb_elem_par_col;
 
 	update_size(term);
-	elem_col = (list_len(term->lst) + 1) / (term->siz.nb_col - 1);
 
-	/*
-	   ft_putstr_fd("shell x : ", 2);
-	   ft_putnbr_fd(siz->nb_col, 2);
-	   ft_putendl_fd("", 2);
+	nb_col = term->siz.nb_elem / term->win.ws_row;
+	nb_elem_par_col = term->win.ws_row;
 
-	   ft_putstr_fd("shell y : ", 2);
-	   ft_putnbr_fd(siz->nb_row, 2);
-	   ft_putendl_fd("", 2);
-
-	   ft_putstr_fd("col : ", 2);
-	   ft_putnbr_fd(col, 2);
-	   ft_putendl_fd("", 2);
-
-	   ft_putstr_fd("elem_col : ", 2);
-	   ft_putnbr_fd(elem_col, 2);
-	   ft_putendl_fd("", 2);
-	   */
-
-	if (i % (elem_col + 1) == 0)
+	if (i % term->win.ws_row == 0)
 	{
-		tputs(tgetstr("rc", NULL), 1, ft_poutchar);
-		ref++;
+		tputs(tgetstr("rc", NULL), 1, ft_poutchar); // Retour chariot
+		max *= 2;
+		id_col++;
 	}
-
 	j = 0;
-	if (ref)
-		while (j < term->siz.max_len + 4)
+	if (id_col != 0)
+	{
+		term->siz.max_len *= 2;
+		while (j < max)
 		{
-			tputs(tgetstr("nd", NULL), 1, ft_poutchar);	
+			tputs(tgetstr("nd", NULL), 1, ft_poutchar);	// espace
 			j++;
 		}
+	}
+	return (max);
 }
