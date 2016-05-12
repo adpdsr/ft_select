@@ -27,9 +27,7 @@ static void	get_key(t_term *term)
 	if (BUFFER == K_RIGHT)
 		right_arrow(term);
 	if (BUFFER == K_DOWN)
-	{
 		down_arrow(term);
-	}
 	if (BUFFER == K_SP)
 		select_cur(term);
 	if (BUFFER == K_ESC)
@@ -51,17 +49,16 @@ static void	check_args(int ac)
 
 static void		loop(t_term *term)
 {
-	tputs(tgetstr("cl", NULL), 1, ft_poutchar); // Clear
-	//tputs(tgetstr("cr", NULL), 1, ft_poutchar); // Retour chariot
-	//tputs(tgetstr("sc", NULL), 1, ft_poutchar); // Sauvegarder la position du curseur
+	tputs(tgetstr("cl", NULL), 1, ft_poutchar); // Effacer ecran et mettre curseur au debut
+	tputs(tgetstr("sc", NULL), 1, ft_poutchar); // Sauvegarder la position du curseur
+	tputs(tgetstr("rc", NULL), 1, ft_poutchar); // Retour chariot
 	display_list(term);
 	while (1)
 	{	
-		get_screen_size(term);
 		get_key(term);
-		tputs(tgetstr("cl", NULL), 1, ft_poutchar); // Clear
-		//tputs(tgetstr("rc", NULL), 1, ft_poutchar); // Restaurer la position enregistrée du curseur
-		//tputs(tgetstr("cd", NULL), 1, ft_poutchar); // Effacer jusqu’à la fin de l’écran
+	//	tputs(tgetstr("cl", NULL), 1, ft_poutchar); // Effacer ecran et mettre curseur au debut
+		tputs(tgetstr("rc", NULL), 1, ft_poutchar); // Restaurer la position enregistrée du curseur
+		tputs(tgetstr("cd", NULL), 1, ft_poutchar); // Effacer jusqu’à la fin de l’écran
 		display_list(term);
 	}
 }
@@ -74,6 +71,5 @@ int			main(int ac, char **av)
 	init_term(&term);
 	init_list(&term, av);
 	loop(&term);
-	exit_term(&term);
 	return(0);
 }

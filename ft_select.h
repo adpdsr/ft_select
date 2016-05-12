@@ -57,7 +57,7 @@ typedef struct		s_lst
 	struct s_lst	*prev;
 }					t_lst;
 
-typedef struct		s_size
+typedef struct		s_size_info
 {
 	int				nb_elem;
 	int				max_len;
@@ -70,7 +70,7 @@ typedef struct		s_term
 	char			*name_term;
 	struct winsize	win;
 	struct termios	termios;
-	t_size			siz;
+	t_size			info;
 	t_lst			*lst;
 }					t_term;
 
@@ -87,13 +87,13 @@ void    		init_term(t_term *term);
 void   	  		exit_term(t_term *term);
 void			init_list(t_term *term, char **av);
 void			display_list(t_term *term);
-void			get_screen_size(t_term *term);
+void			get_size_info(t_term *term);
 //void			free_list(t_term *term);
 
 int				ft_poutchar(int c);
 void 			error_exit(char *func);
 t_lst			*list_position(t_lst **head);
 
-int				set_display(t_term *term, t_lst *lst, int ref, int i, int max);
+int		set_display(t_term *term, int pos_col, int i);
 
 #endif

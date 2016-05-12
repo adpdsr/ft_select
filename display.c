@@ -58,17 +58,17 @@ static void	choose_display(t_lst *lst)
 
 void		display_list(t_term *term)
 {
-	int		i;
-	int max = 0;
-	int		ref;
+	int	i;
+	int	pos_col;
 	t_lst	*tmp;
 
 	i = 1;
-	ref = 0;
+	pos_col = -1;
 	tmp = term->lst;
+	get_size_info(term);
 	while (tmp)
 	{
-		max = set_display(term, tmp, ref, i, max);
+		pos_col = set_display(term, pos_col, i);
 		choose_display(tmp);
 		tmp = tmp->next;
 		i++;

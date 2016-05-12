@@ -12,80 +12,61 @@
 
 #include "ft_select.h"
 
-void	get_screen_size(t_term *term)
-{
-	ioctl(0, TIOCGWINSZ, &(term->win));
-	term->siz.nb_row = term->win.ws_row;
-	term->siz.nb_col = term->win.ws_col;
-}
-
-int		list_len(t_lst *lst)
+static void		list_size(t_term *term)
 {
 	int len;
+	int nb_elem;
+	int max_len;	
+	t_lst	*tmp;
 
-	len = 0;
-	while (lst)
-	{
-		len++;
-		lst = lst->next;
-	}
-	return (len);
-}
-
-int		list_max_len(t_lst *lst)
-{
-	int len;
-	int max_len;
-
+	nb_elem = 0;
 	max_len = 0;
-	while (lst)
+	tmp = term->lst;
+	while (tmp)
 	{
-		len = ft_strlen(lst->name);
+		len = ft_strlen(tmp->name);
 		if (len > max_len)
 			max_len = len;
-		lst = lst->next;
+
+		nb_elem++;
+		tmp = tmp->next;
 	}
-	return (max_len);
+	term->info.nb_elem = nb_elem;	
+	term->info.max_len = max_len;	
 }
 
-void	update_size(t_term *term)
+void	get_size_info(t_term *term)
 {
-	t_size	*siz;
-	t_lst	**head;
+	ioctl(0, TIOCGWINSZ, &(term->win));
+	term->info.nb_row = term->win.ws_row;
+	term->info.nb_col = term->win.ws_col;
 
-	head = &term->lst;
-	siz = &term->siz;
-	siz->nb_elem = list_len(*head);
-	siz->max_len = list_max_len(*head);
-	siz->nb_col = term->win.ws_col / (siz->max_len + 4);
+	list_size(term);
 }
 
-int	set_display(t_term *term, t_lst *lst, int id_col, int i, int max)
+int	set_display(t_term *term, int pos_col, int i)
 {
 	int j;
 	int nb_col;
-	int	nb_elem_par_col;
+	int nb_max;
 
-	update_size(term);
 
-	nb_col = term->siz.nb_elem / term->win.ws_row;
-	nb_elem_par_col = term->win.ws_row;
-
-	if (i % term->win.ws_row == 0)
-	{
-		tputs(tgetstr("rc", NULL), 1, ft_poutchar); // Retour chariot
-		max *= 2;
-		id_col++;
-	}
 	j = 0;
-	if (id_col != 0)
+	nb_col = (term->info.nb_elem / term->win.ws_row) + 1;
+	nb_max = term->info.nb_row;
+	//nb_max = term->win.ws_row;
+
+	if (nb_col > 1)
 	{
-		term->siz.max_len *= 2;
-		while (j < max)
+		if (i % (nb_max) == 0)
 		{
-			tputs(tgetstr("nd", NULL), 1, ft_poutchar);	// espace
-			j++;
+			pos_col += (term->info.max_len + 2);
+			tputs(tgetstr("rc", NULL), 1, ft_poutchar); // Retour chariot
+		}
+		while (j++ <= pos_col)
+		{
+			tputs(tgetstr("nd", NULL), 1, ft_poutchar); // espace
 		}
 	}
-	return (max);
+	return (pos_col);
 }
