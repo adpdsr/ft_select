@@ -6,7 +6,7 @@
 /*   By: adu-pelo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/09 11:25:28 by adu-pelo          #+#    #+#             */
-/*   Updated: 2016/05/10 17:26:26 by adu-pelo         ###   ########.fr       */
+/*   Updated: 2016/05/12 17:44:38 by adu-pelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ void	init_term(t_term *term)
 	term->termios.c_cc[VTIME] = 0;
 	if (tcsetattr(0, 0, &(term->termios)) == -1)
 		error_exit("tcsetattr");
-//	tputs(tgetstr("ti", NULL), 1, ft_poutchar); // Debut prog utilisant deplacement du curseur
 	tputs(tgetstr("vi", NULL), 1, ft_poutchar); // Curseur invisible
 }
 
@@ -37,7 +36,6 @@ void     exit_term(t_term *term)
 	term->termios.c_lflag |= (ICANON | ECHO);
 	if (tcsetattr(0, 0, &(term->termios)) == -1)
 		error_exit("tcsetattr");
-	tputs(tgetstr("te", NULL), 1, ft_poutchar); // Fin prog utilisant deplacement curseur
 	tputs(tgetstr("cl", NULL), 1, ft_poutchar); // Effacer ecran et mettre curseur au debut
 	tputs(tgetstr("ve", NULL), 1, ft_poutchar); // Curseur normal visible
 }

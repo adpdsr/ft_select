@@ -6,7 +6,7 @@
 /*   By: adu-pelo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/09 12:30:11 by adu-pelo          #+#    #+#             */
-/*   Updated: 2016/05/10 17:32:07 by adu-pelo         ###   ########.fr       */
+/*   Updated: 2016/05/12 17:17:36 by adu-pelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,16 @@ void		display_list(t_term *term)
 	int	pos_col;
 	t_lst	*tmp;
 
-	i = 1;
+//	ft_putendl("test2");
+//	sleep(1);
+	i = 0;
 	pos_col = -1;
 	tmp = term->lst;
+//	ft_putendl("test3");
+//	sleep(1);
 	get_size_info(term);
+//	ft_putendl("test4");
+//	sleep(1);
 	while (tmp)
 	{
 		pos_col = set_display(term, pos_col, i);
