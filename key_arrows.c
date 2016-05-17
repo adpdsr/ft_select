@@ -33,7 +33,7 @@ void            left_arrow(t_term *term)
 	int		len;
 	t_lst	*tmp;
 
-	len = term->win.ws_row - 2;
+	len = term->win.ws_row - 1;
 	tmp = list_position(&term->lst);
 	tmp->pos = 0;
 	while (len > 0)
@@ -54,7 +54,7 @@ void            right_arrow(t_term *term)
 	t_lst	*tmp;
 
 	i = 0;
-	len = term->win.ws_row - 2;
+	len = term->win.ws_row - 1;
 	tmp = list_position(&term->lst);
 	tmp->pos = 0;
 	while (i < len)

@@ -6,7 +6,7 @@
 /*   By: adu-pelo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/09 12:30:11 by adu-pelo          #+#    #+#             */
-/*   Updated: 2016/05/12 17:17:36 by adu-pelo         ###   ########.fr       */
+/*   Updated: 2016/05/17 17:35:27 by adu-pelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,22 +56,42 @@ static void	choose_display(t_lst *lst)
 		ft_putendl_fd(lst->name, 2);
 }
 
+static int	check_size(t_term *term)
+{
+	int nb_col;
+
+	if (term->info.nb_row == 1)
+	{
+		tputs(tgetstr("cl", NULL), 1, ft_poutchar);
+		ft_putendl_fd("window size too small", 2);
+		return (1);
+	}
+	nb_col = (term->info.nb_elem / (term->info.nb_row - 1));
+	if (nb_col == 0)
+		nb_col = 1;
+	if (((term->info.nb_row - 1) * nb_col) < term->info.nb_elem)
+		nb_col++;
+	if (((term->info.max_len + 2) * nb_col) > term->info.nb_col)
+	{	
+		tputs(tgetstr("cl", NULL), 1, ft_poutchar);
+		ft_putendl_fd("window size too small", 2);
+		return (1);
+	}
+	return (0);
+}
+
 void		display_list(t_term *term)
 {
 	int	i;
 	int	pos_col;
 	t_lst	*tmp;
 
-//	ft_putendl("test2");
-//	sleep(1);
 	i = 0;
 	pos_col = -1;
 	tmp = term->lst;
-//	ft_putendl("test3");
-//	sleep(1);
 	get_size_info(term);
-//	ft_putendl("test4");
-//	sleep(1);
+	if (check_size(term))
+		return ;
 	while (tmp)
 	{
 		pos_col = set_display(term, pos_col, i);

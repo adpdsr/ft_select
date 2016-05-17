@@ -6,7 +6,7 @@
 /*   By: adu-pelo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/03 10:46:12 by adu-pelo          #+#    #+#             */
-/*   Updated: 2016/05/12 17:37:06 by adu-pelo         ###   ########.fr       */
+/*   Updated: 2016/05/17 17:35:27 by adu-pelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,9 +94,11 @@ int				ft_poutchar(int c);
 void 			error_exit(char *func);
 t_lst			*list_position(t_lst **head);
 
-int set_display(t_term *term, int pos_col, int i);
+int				set_display(t_term *term, int pos_col, int i);
 
-void    catch_signal(void);
-t_term   *ft_stock(t_term *term, int i);
+void			catch_signal();
+t_term			*ft_stock(t_term *term, int i);
+void			display_interface(t_term *term);
+
 
 #endif
