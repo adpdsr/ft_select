@@ -15,18 +15,18 @@
 static void	print_selected(t_lst *lst)
 {
 	tputs(tgetstr("so", NULL), 1, ft_poutchar);
-	ft_putstr_fd(CYAN, 2);
-	ft_putendl_fd(lst->name, 2);
-	ft_putstr_fd(RESET, 2);
+	ft_putstr_fd(CYAN, 1);
+	ft_putendl_fd(lst->name, 1);
+	ft_putstr_fd(RESET, 1);
 	tputs(tgetstr("se", NULL), 1, ft_poutchar);
 }
 
 static void	print_current(t_lst *lst)
 {
 	tputs(tgetstr("us", NULL), 1, ft_poutchar);
-	ft_putstr_fd(CYAN, 2);
-	ft_putendl_fd(lst->name, 2);
-	ft_putstr_fd(RESET, 2);
+	ft_putstr_fd(CYAN, 1);
+	ft_putendl_fd(lst->name, 1);
+	ft_putstr_fd(RESET, 1);
 	tputs(tgetstr("ue", NULL), 1, ft_poutchar);
 }
 
@@ -34,9 +34,9 @@ static void	print_current_selected(t_lst *lst)
 {
 	tputs(tgetstr("so", NULL), 1, ft_poutchar);
 	tputs(tgetstr("us", NULL), 1, ft_poutchar);
-	ft_putstr_fd(CYAN, 2);
-	ft_putendl_fd(lst->name, 2);
-	ft_putstr_fd(RESET, 2);
+	ft_putstr_fd(CYAN, 1);
+	ft_putendl_fd(lst->name, 1);
+	ft_putstr_fd(RESET, 1);
 	tputs(tgetstr("se", NULL), 1, ft_poutchar);
 	tputs(tgetstr("ue", NULL), 1, ft_poutchar);
 }
@@ -53,7 +53,7 @@ static void	choose_display(t_lst *lst)
 	else if (lst->selected)
 		print_selected(lst);
 	else
-		ft_putendl_fd(lst->name, 2);
+		ft_putendl_fd(lst->name, 1);
 }
 
 void		display_list(t_term *term)

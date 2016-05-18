@@ -47,6 +47,23 @@ static t_lst	*list_create_node(char *av, int i)
 	return (new);
 }
 
+void			free_list(t_term *term)
+{
+	t_lst *next;
+	t_lst *tmp;
+
+	tmp = term->lst;
+	while (tmp)
+	{
+		next = tmp->next;
+		if (tmp->name)
+			free(tmp->name);
+		free(tmp);
+		tmp = next;
+	}
+	tmp = NULL;
+}
+
 void			init_list(t_term *term, char **av)
 {
 	int	i;

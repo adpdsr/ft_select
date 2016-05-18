@@ -79,8 +79,8 @@ int			set_display(t_term *term, int pos_col, int i)
 	if (((term->info.nb_row - 1) * nb_col) < term->info.nb_elem)
 		nb_col++;
 	nb_max = term->info.nb_row - 1;
-	if (i == 0)
-		tputs(tgetstr("rc", NULL), 1, ft_poutchar);
+//	if (i == 0)
+//		tputs(tgetstr("rc", NULL), 1, ft_poutchar);
 	if (i != 0 && i % (nb_max) == 0)
 	{
 		pos_col += (term->info.max_len + 2);

@@ -49,8 +49,6 @@ static void	check_args(int ac)
 static void	loop(t_term *term)
 {
 	get_size_info(term);
-	tputs(tgetstr("cl", NULL), 1, ft_poutchar);
-	tputs(tgetstr("sc", NULL), 1, ft_poutchar);
 	term = ft_stock(term, 0);
 	display_list(term);
 	while (1)

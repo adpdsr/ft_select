@@ -68,6 +68,7 @@ static void	end(int sig)
 	tcsetattr(0, TCSANOW, &(term->termios));
 	tputs(tgetstr("cl", NULL), 1, ft_poutchar);
 	tputs(tgetstr("ve", NULL), 1, ft_poutchar);
+	free_list(term);
 	exit(0);
 }
 
