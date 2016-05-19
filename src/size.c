@@ -6,7 +6,7 @@
 /*   By: adu-pelo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/09 13:21:18 by adu-pelo          #+#    #+#             */
-/*   Updated: 2016/05/17 18:43:24 by adu-pelo         ###   ########.fr       */
+/*   Updated: 2016/05/19 12:53:38 by adu-pelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,8 @@ int			check_size(t_term *term)
 		nb_col++;
 	if (((term->info.max_len + 2) * nb_col) > term->info.nb_col)
 	{
-		tputs(tgetstr("cl", NULL), 1, ft_poutchar);
+		tputs(tgetstr("rc", NULL), 1, ft_poutchar);
+		tputs(tgetstr("cd", NULL), 1, ft_poutchar);
 		ft_putendl_fd("window size too small", 2);
 		return (1);
 	}
@@ -79,8 +80,6 @@ int			set_display(t_term *term, int pos_col, int i)
 	if (((term->info.nb_row - 1) * nb_col) < term->info.nb_elem)
 		nb_col++;
 	nb_max = term->info.nb_row - 1;
-//	if (i == 0)
-//		tputs(tgetstr("rc", NULL), 1, ft_poutchar);
 	if (i != 0 && i % (nb_max) == 0)
 	{
 		pos_col += (term->info.max_len + 2);

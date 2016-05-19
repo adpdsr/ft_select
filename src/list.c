@@ -6,7 +6,7 @@
 /*   By: adu-pelo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/03 12:11:08 by adu-pelo          #+#    #+#             */
-/*   Updated: 2016/05/17 18:29:50 by adu-pelo         ###   ########.fr       */
+/*   Updated: 2016/05/19 12:50:35 by adu-pelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ static t_lst	*list_create_node(char *av, int i)
 		return (NULL);
 	new->name = ft_strdup(av);
 	new->len = ft_strlen(av);
-	new->id = i;
 	new->pos = 0;
 	if (i == 1)
 		new->pos = 1;

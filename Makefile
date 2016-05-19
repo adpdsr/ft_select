@@ -6,7 +6,7 @@
 #    By: adu-pelo <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/05/17 18:10:52 by adu-pelo          #+#    #+#              #
-#    Updated: 2016/05/17 18:21:02 by adu-pelo         ###   ########.fr        #
+#    Updated: 2016/05/19 13:00:02 by adu-pelo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,12 +16,12 @@ C_DIR = src
 C_FILES = $(shell find $(C_DIR) -type f -follow -print | grep "\.c")
 
 OBJ = $(C_FILES:.c=.o)
-	FLAGS = -Wall -Werror -Wextra
-	LIB = -L./libft -lft
+FLAGS = -Wall -Werror -Wextra
+LIB = -L./libft -lft -ltermcap
 
 $(NAME): $(OBJ)
 	make -C ./libft
-	gcc $(FLAGS) -lncurses $(OBJ) $(LIB) -o $(NAME)
+	gcc $(FLAGS) $(OBJ) $(LIB) -o $(NAME)
 
 all: $(NAME)
 

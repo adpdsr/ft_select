@@ -6,7 +6,7 @@
 /*   By: adu-pelo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/12 13:56:28 by adu-pelo          #+#    #+#             */
-/*   Updated: 2016/05/17 18:39:47 by adu-pelo         ###   ########.fr       */
+/*   Updated: 2016/05/19 12:53:36 by adu-pelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ static void	resize(int sig)
 	(void)sig;
 	term = NULL;
 	term = ft_stock(term, 1);
-	tputs(tgetstr("cl", NULL), 1, ft_poutchar);
+	tputs(tgetstr("rc", NULL), 1, ft_poutchar);
+	tputs(tgetstr("cd", NULL), 1, ft_poutchar);
 	display_list(term);
 }
 
@@ -34,7 +35,7 @@ static void	stop(int sig)
 	cp[0] = term->termios.c_cc[VSUSP];
 	cp[1] = 0;
 	term->termios.c_lflag |= (ICANON | ECHO);
-	tcsetattr(0, 0, &(term->termios));
+	tcsetattr(term->fd, TCSANOW, &(term->termios));
 	tputs(tgetstr("cl", NULL), 1, ft_poutchar);
 	tputs(tgetstr("ve", NULL), 1, ft_poutchar);
 	signal(SIGTSTP, SIG_DFL);
@@ -51,7 +52,7 @@ static void	restart(int sig)
 	term->termios.c_lflag &= ~(ICANON | ECHO);
 	term->termios.c_cc[VMIN] = 1;
 	term->termios.c_cc[VTIME] = 0;
-	tcsetattr(0, 0, &(term->termios));
+	tcsetattr(term->fd, TCSANOW, &(term->termios));
 	tputs(tgetstr("cl", NULL), 1, ft_poutchar);
 	tputs(tgetstr("vi", NULL), 1, ft_poutchar);
 	signal(SIGTSTP, stop);
@@ -65,10 +66,12 @@ static void	end(int sig)
 	(void)sig;
 	term = NULL;
 	term = ft_stock(term, 1);
-	tcsetattr(0, TCSANOW, &(term->termios));
+	tcsetattr(term->fd, TCSANOW, &(term->termios));
 	tputs(tgetstr("cl", NULL), 1, ft_poutchar);
 	tputs(tgetstr("ve", NULL), 1, ft_poutchar);
 	free_list(term);
+	if (close(term->fd) < 0)
+		error_exit("close");
 	exit(0);
 }
 
@@ -77,6 +80,7 @@ void		catch_signal(void)
 	signal(SIGWINCH, resize);
 	signal(SIGTSTP, stop);
 	signal(SIGCONT, restart);
-	signal(SIGINT, end);
 	signal(SIGQUIT, end);
+	signal(SIGTERM, end);
+	signal(SIGINT, end);
 }

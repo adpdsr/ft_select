@@ -6,7 +6,7 @@
 /*   By: adu-pelo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/17 18:15:15 by adu-pelo          #+#    #+#             */
-/*   Updated: 2016/05/17 18:25:12 by adu-pelo         ###   ########.fr       */
+/*   Updated: 2016/05/19 13:08:32 by adu-pelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,13 @@ void	left_arrow(t_term *term)
 	len = term->win.ws_row - 1;
 	tmp = list_position(&term->lst);
 	tmp->pos = 0;
+	if (!tmp->prev)
+	{
+		while (tmp->next)
+			tmp = tmp->next;
+		tmp->pos = 1;
+		return ;
+	}
 	while (len > 0)
 	{
 		if (!tmp->prev)
@@ -69,6 +76,12 @@ void	right_arrow(t_term *term)
 	len = term->win.ws_row - 1;
 	tmp = list_position(&term->lst);
 	tmp->pos = 0;
+	if (!tmp->next)
+	{
+		tmp = term->lst;
+		tmp->pos = 1;
+		return ;
+	}
 	while (i < len)
 	{
 		if (!tmp->next)

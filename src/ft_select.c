@@ -6,11 +6,20 @@
 /*   By: adu-pelo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/03 11:17:30 by adu-pelo          #+#    #+#             */
-/*   Updated: 2016/05/17 18:31:55 by adu-pelo         ###   ########.fr       */
+/*   Updated: 2016/05/19 12:53:35 by adu-pelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/ft_select.h"
+
+static void	check_args(int ac)
+{
+	if (ac < 2)
+	{
+		ft_putendl_fd("ft_select: usage: ./ft_select arg1 arg2 arg3 ...", 2);
+		exit(1);
+	}
+}
 
 static void	get_key(t_term *term)
 {
@@ -35,15 +44,6 @@ static void	get_key(t_term *term)
 		del(term, &term->lst);
 	if (BUFFER == K_RET)
 		ret_to_shell(term);
-}
-
-static void	check_args(int ac)
-{
-	if (ac < 2)
-	{
-		ft_putendl_fd("ft_select: usage: ./ft_select arg1 arg2 arg3 [...]", 2);
-		exit(1);
-	}
 }
 
 static void	loop(t_term *term)

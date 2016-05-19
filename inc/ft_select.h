@@ -6,12 +6,12 @@
 /*   By: adu-pelo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/03 10:46:12 by adu-pelo          #+#    #+#             */
-/*   Updated: 2016/05/17 18:44:28 by adu-pelo         ###   ########.fr       */
+/*   Updated: 2016/05/19 13:15:03 by adu-pelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_SELECT
-# define FT_SELECT
+#ifndef FT_SELECT_H
+# define FT_SELECT_H
 
 # include "../libft/libft.h"
 # include <sys/ioctl.h>
@@ -20,8 +20,6 @@
 # include <signal.h>
 # include <fcntl.h>
 # include <term.h>
-
-/* KEY CODES */
 
 # define K_DEL 2117294875
 # define K_RIGHT 4414235
@@ -32,8 +30,6 @@
 # define K_RET 10
 # define K_ESC 27
 # define K_SP 32
-
-/* ANSI COLORS */
 
 # define MAGENTA "\033[35m"
 # define YELLOW "\033[33m"
@@ -47,60 +43,59 @@
 
 # define BUFFER *(unsigned int *)buffer
 
-typedef struct winsize t_win;
-typedef struct termios t_tcpy;
+typedef struct winsize	t_win;
+typedef struct termios	t_tcpy;
 
-typedef struct		s_lst
+typedef struct			s_lst
 {
-	int 			pos;
-	int				selected;
-	int				id;
-	int				len;
-	char			*name;
-	struct s_lst	*next;
-	struct s_lst	*prev;
-}					t_lst;
+	int					pos;
+	int					len;
+	int					selected;
+	char				*name;
+	struct s_lst		*next;
+	struct s_lst		*prev;
+}						t_lst;
 
-typedef struct		s_size_info
+typedef struct			s_size_info
 {
-	int				nb_elem;
-	int				max_len;
-	int				nb_col;
-	int				nb_row;
-}					t_size;
+	int					nb_elem;
+	int					max_len;
+	int					nb_col;
+	int					nb_row;
+}						t_size;
 
-typedef struct		s_term
+typedef struct			s_term
 {
-	int				fd;
-	t_win			win;
-	t_lst			*lst;
-	t_size			info;
-	t_tcpy			termios;
-}					t_term;
+	int					fd;
+	t_win				win;
+	t_lst				*lst;
+	t_size				info;
+	t_tcpy				termios;
+}						t_term;
 
-void            escape(t_term *term);
-void            select_cur(t_term *term);
-void			ret_to_shell(t_term *term);
-void            del(t_term *term, t_lst **head);
-void            up_arrow(t_term *term);
-void            down_arrow(t_term *term);
-void            left_arrow(t_term *term);
-void            right_arrow(t_term *term);
+void					escape(t_term *term);
+void					select_cur(t_term *term);
+void					ret_to_shell(t_term *term);
+void					del(t_term *term, t_lst **head);
+void					up_arrow(t_term *term);
+void					down_arrow(t_term *term);
+void					left_arrow(t_term *term);
+void					right_arrow(t_term *term);
 
-void    		init_term(t_term *term);
-void   	  		exit_term(t_term *term);
-void			get_size_info(t_term *term);
-int         	check_size(t_term *term);
-t_term			*ft_stock(t_term *term, int i);
+void					init_term(t_term *term);
+void					exit_term(t_term *term);
+void					get_size_info(t_term *term);
+int						check_size(t_term *term);
+t_term					*ft_stock(t_term *term, int i);
 
-void			free_list(t_term *term);
-void			display_list(t_term *term);
-void			init_list(t_term *term, char **av);
-int				set_display(t_term *term, int pos_col, int i);
-t_lst			*list_position(t_lst **head);
+void					free_list(t_term *term);
+void					display_list(t_term *term);
+void					init_list(t_term *term, char **av);
+int						set_display(t_term *term, int pos_col, int i);
+t_lst					*list_position(t_lst **head);
 
-void 			error_exit(char *func);
-void			catch_signal(void);
-int				ft_poutchar(int c);
+void					error_exit(char *func);
+void					catch_signal(void);
+int						ft_poutchar(int c);
 
 #endif
