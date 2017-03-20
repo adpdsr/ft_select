@@ -1,12 +1,12 @@
-#ft_select
+# ft_select
   
 Projet Ecole 42
   
-##Synopsis
+## Synopsis
   
 Ce progamme utilise la bibliothèque termcaps, il permet de selectionner un ou plusieurs choix dans une liste passée en paramètre pour le(s) afficher sur la sortie standard.
 
-####Touches utilisables :
+#### Touches utilisables :
   
 * touches directionelles : se déplacer dans la liste
 * espace : sélectionner/désélectionner un element 
